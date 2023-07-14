@@ -72,19 +72,32 @@ func (a mountInfos) Less(i, j int) bool {
 }
 
 // Choose the right moint point
-func (a mountInfos) mount() mountInfo {
+func (a mountInfos) mount(dir string) mountInfo {
 	info := mountInfo{}
 	index := 0
 
 	for i := 0; i < len(a); i++ {
 		_cur := (curMountIndex + i) % len(a)
 		// current moint point working, continue
-		if !a[_cur].status.isIdle() {
-			continue
-		}
-		if a[_cur].size < reservedSpace {
-			log.Infof(log.Fields{}, "%v available %v < %v", a[_cur].path, a[_cur].size, reservedSpace)
-			continue
+		if dir != ""  {
+			found := false
+			filepath.Walk(a[_cur].path, func(path string, info os.FileInfo, err error) error {
+				if strings.Contains(path, dir) {
+					found = true
+				}
+				return nil
+			})
+			if !found {
+				continue
+			}
+		} else {
+			if !a[_cur].status.isIdle() {
+				continue
+			}
+			if a[_cur].size < reservedSpace {
+				log.Infof(log.Fields{}, "%v available %v < %v", a[_cur].path, a[_cur].size, reservedSpace)
+				continue
+			}
 		}
 
 		// TODO isIdle incTask 可以包装在一起
@@ -114,11 +127,17 @@ func (a mountInfos) updateStatus(mountPoint string) {
 }
 
 // Mount 寻找合适的目录
-func Mount() string {
+func Mount(dir string) string {
 	initMount()
 	lock.Lock()
-	path := _mountInfos.mount().path
-	log.Infof(log.Fields{}, "select mount path %v", path)
+	path := _mountInfos.mount(dir).path
+	if path == "" {
+		path = _mountInfos.mount("").path
+	}
+	if path != "" {
+		os.MkdirAll(filepath.Join(path, dir), 0666)
+	}
+	log.Infof(log.Fields{}, "select mount path %v, %v", path, dir)
 	lock.Unlock()
 	return path
 }
