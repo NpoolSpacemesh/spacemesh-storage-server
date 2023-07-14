@@ -36,6 +36,7 @@ func Fetch(input Meta) {
 	}()
 
 	plotFile := filepath.Base(input.PlotURL)
+	plotDir := filepath.Base(plotFile)
 
 	path := mount.Mount()
 	// 没有挂载的盘符
@@ -52,7 +53,7 @@ func Fetch(input Meta) {
 	// 选择存放的目录
 	log.Infof(log.Fields{}, "try to select suitable path %v for %v", path, input.PlotURL)
 
-	tmp := filepath.Join(temp(path, input.ClusterName, plotFile, true)...)
+	tmp := filepath.Join(temp(path, input.ClusterName, filepath.Join(plotDir, plotFile), true)...)
 	os.MkdirAll(filepath.Dir(tmp), 0666)
 
 	plot, err := os.Create(tmp)
@@ -88,7 +89,8 @@ func Fetch(input Meta) {
 		return
 	}
 
-	plotFile = filepath.Join(temp(path, input.ClusterName, plotFile, false)...)
+	plotFile = filepath.Join(temp(path, input.ClusterName, filepath.Join(plotDir, plotFile), false)...)
+	os.MkdirAll(filepath.Dir(plotFile), 0666)
 	if err = os.Rename(tmp, plotFile); err != nil {
 		log.Errorf(log.Fields{}, "fail to rename tmp file for %v: %v", input.PlotURL, err)
 		return
