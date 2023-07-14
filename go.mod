@@ -4,7 +4,7 @@ go 1.15
 
 require (
 	github.com/EntropyPool/entropy-logger v0.0.0-20210320022718-3091537e035f
-	github.com/NpoolSpacemesh/spacemesh-storage-proxy v0.0.0-20230714075821-db29ca7a8f12
+	github.com/NpoolSpacemesh/spacemesh-storage-proxy v0.0.0-20230714081437-a0123487c626
 	github.com/NpoolRD/http-daemon v0.0.0-20210505073728-a1d91b8af9df
 	github.com/boltdb/bolt v1.3.1
 	github.com/go-resty/resty/v2 v2.4.0
