@@ -19,7 +19,7 @@ import (
 
 	log "github.com/EntropyPool/entropy-logger"
 	httpdaemon "github.com/NpoolRD/http-daemon"
-	spacemeshstorageProxyTypes "github.com/NpoolSpacemesh/spacemesh-storage-proxy/types"
+	spacemeshstorageProxyTypes "github.com/NpoolSpacemesh/spacemesh-storage-server/proxytypes"
 )
 
 func Fetch(input Meta) {
