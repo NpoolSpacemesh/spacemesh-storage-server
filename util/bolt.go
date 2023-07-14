@@ -8,8 +8,8 @@ import (
 )
 
 var (
-	DefaultBucket = []byte("chia")
-	DefaultDB     = "/etc/chia-storage-server.db"
+	DefaultBucket = []byte("spacemesh")
+	DefaultDB     = "/etc/spacemesh-storage-server.db"
 )
 
 var (

@@ -1,4 +1,4 @@
-# Chia Storage Server
+# Spacemesh Storage Server
 ## TODO
 
 1. 数据库设计
@@ -9,7 +9,7 @@
 ### 数据库设计
 
 ```sql
-create table chia_storage(
+create table spacemesh_storage(
     id int(11) UNSIGNED AUTO_INCREMENT,
     url varchar(255) not null default '',
     state tinyint not null default 0,
@@ -27,22 +27,22 @@ create table chia_storage(
 ```json
 {
   "port": 18080,
-  "db_path": "/etc/chia-storage-server.db",
-  "cluster_name": "chia",
+  "db_path": "/etc/spacemesh-storage-server.db",
+  "cluster_name": "spacemesh",
   "reserved_space": 100000000000
 }
 ```
-2. 异步拉取 **chia-storage-proxy** 的 **plot** 文件
+2. 异步拉取 **spacemesh-storage-proxy** 的 **plot** 文件
 
 ## service 文件
 ```
-cat << EOF > /etc/systemd/system/chia-storage-server.service
+cat << EOF > /etc/systemd/system/spacemesh-storage-server.service
 [Unit]
-Description=Chia Plotter
+Description=Spacemesh Plotter
 After=lotus-mount-disk.service
 
 [Service]
-ExecStart=/usr/local/bin/chia-storage-server --config /etc/chia-storage-server.conf
+ExecStart=/usr/local/bin/spacemesh-storage-server --config /etc/spacemesh-storage-server.conf
 Restart=always
 RestartSec=10
 MemoryAccounting=true
@@ -69,18 +69,18 @@ WantedBy=multi-user.target
 
 部署相关的文件
 
-+ chia-storage-server
-+ chia-storage-server.conf
-+ chia-storage-server.service
++ spacemesh-storage-server
++ spacemesh-storage-server.conf
++ spacemesh-storage-server.service
 
 |            文件             |      部署路径       |          说明           |
 | :------------------------- | :----------------- | :--------------------- |
-|     chia-storage-server     |   /usr/local/bin    | chia 存储服务可执行文件 |
-|  chia-storage-server.conf   |        /etc         |        配置文件         |
-| chia-storage-server.service | /etc/systemd/system |      service 文件       |
+|     spacemesh-storage-server     |   /usr/local/bin    | spacemesh 存储服务可执行文件 |
+|  spacemesh-storage-server.conf   |        /etc         |        配置文件         |
+| spacemesh-storage-server.service | /etc/systemd/system |      service 文件       |
 
 **注**
-**chia-storage-server** 服务要设置自启动
+**spacemesh-storage-server** 服务要设置自启动
 ```
-  systemctl enable chia-storage-server
+  systemctl enable spacemesh-storage-server
 ```

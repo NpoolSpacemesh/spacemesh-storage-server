@@ -11,15 +11,15 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/NpoolChia/chia-storage-server/pkg/mount"
-	"github.com/NpoolChia/chia-storage-server/util"
+	"github.com/NpoolSpacemesh/spacemesh-storage-server/pkg/mount"
+	"github.com/NpoolSpacemesh/spacemesh-storage-server/util"
 	"github.com/boltdb/bolt"
 	"github.com/go-resty/resty/v2"
 	"golang.org/x/xerrors"
 
 	log "github.com/EntropyPool/entropy-logger"
-	chiastorageProxyTypes "github.com/NpoolChia/chia-storage-proxy/types"
 	httpdaemon "github.com/NpoolRD/http-daemon"
+	spacemeshstorageProxyTypes "github.com/NpoolSpacemesh/spacemesh-storage-proxy/types"
 )
 
 func Fetch(input Meta) {
@@ -102,7 +102,7 @@ func Fetch(input Meta) {
 
 func Finsih(input Meta) {
 	// notify client write plot file result
-	finish := chiastorageProxyTypes.FinishPlotInput{
+	finish := spacemeshstorageProxyTypes.FinishPlotInput{
 		PlotFile: input.PlotURL,
 	}
 	body, _ := json.Marshal(finish)
@@ -120,7 +120,7 @@ func Finsih(input Meta) {
 }
 
 func Fail(input Meta) {
-	fail := chiastorageProxyTypes.FailPlotInput{
+	fail := spacemeshstorageProxyTypes.FailPlotInput{
 		PlotFile: input.PlotURL,
 	}
 	body, _ := json.Marshal(fail)

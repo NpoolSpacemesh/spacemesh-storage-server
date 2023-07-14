@@ -4,8 +4,8 @@ import (
 	"os"
 
 	log "github.com/EntropyPool/entropy-logger"
-	"github.com/NpoolChia/chia-storage-server/tasks"
-	"github.com/NpoolChia/chia-storage-server/util"
+	"github.com/NpoolSpacemesh/spacemesh-storage-server/tasks"
+	"github.com/NpoolSpacemesh/spacemesh-storage-server/util"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/xerrors"
 )
@@ -18,21 +18,21 @@ func main() {
 	tasks.AddCallBack(tasks.TaskFail, tasks.Fail)     //失败
 
 	app := &cli.App{
-		Name:                 "chia-storage-service",
-		Usage:                "chia storage service",
+		Name:                 "spacemesh-storage-service",
+		Usage:                "spacemesh storage service",
 		Version:              "0.1.0",
 		EnableBashCompletion: true,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:  "config",
-				Value: "./chia-storage-server.conf",
+				Value: "./spacemesh-storage-server.conf",
 			},
 		},
 		Action: func(cctx *cli.Context) error {
 			configFile := cctx.String("config")
-			server := NewChiaStorageServer(configFile)
+			server := NewStorageServer(configFile)
 			if server == nil {
-				return xerrors.Errorf("can not start chia storage server")
+				return xerrors.Errorf("can not start spacemesh storage server")
 			}
 
 			// init db
@@ -40,7 +40,7 @@ func main() {
 
 			err := server.Run()
 			if err != nil {
-				return xerrors.Errorf("fail to run chia storage server: %v", err)
+				return xerrors.Errorf("fail to run spacemesh storage server: %v", err)
 			}
 
 			ch := make(chan int)

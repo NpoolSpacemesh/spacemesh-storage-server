@@ -1,10 +1,10 @@
-module github.com/NpoolChia/chia-storage-server
+module github.com/NpoolSpacemesh/spacemesh-storage-server
 
 go 1.15
 
 require (
 	github.com/EntropyPool/entropy-logger v0.0.0-20210320022718-3091537e035f
-	github.com/NpoolChia/chia-storage-proxy v0.0.0-20210505100152-34961917e6e1
+	github.com/NpoolSpacemesh/spacemesh-storage-proxy db29ca7
 	github.com/NpoolRD/http-daemon v0.0.0-20210505073728-a1d91b8af9df
 	github.com/boltdb/bolt v1.3.1
 	github.com/go-resty/resty/v2 v2.4.0

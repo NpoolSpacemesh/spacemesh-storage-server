@@ -1,5 +1,5 @@
 package types
 
 const (
-	UploadPlotAPI = "/api/v0/chia/uploadplot"
+	UploadPlotAPI = "/api/v0/uploadplot"
 )

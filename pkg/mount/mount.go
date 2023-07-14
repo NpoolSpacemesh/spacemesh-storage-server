@@ -10,7 +10,7 @@ import (
 	"sync"
 
 	log "github.com/EntropyPool/entropy-logger"
-	"github.com/NpoolChia/chia-storage-server/util"
+	"github.com/NpoolSpacemesh/spacemesh-storage-server/util"
 )
 
 const (
