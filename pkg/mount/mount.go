@@ -79,7 +79,7 @@ func (a mountInfos) mount(dir string) mountInfo {
 	for i := 0; i < len(a); i++ {
 		_cur := (curMountIndex + i) % len(a)
 		// current moint point working, continue
-		if dir != ""  {
+		if dir != "" {
 			found := false
 			filepath.Walk(a[_cur].path, func(path string, info os.FileInfo, err error) error {
 				if strings.Contains(path, dir) {
@@ -98,12 +98,12 @@ func (a mountInfos) mount(dir string) mountInfo {
 				log.Infof(log.Fields{}, "%v available %v < %v", a[_cur].path, a[_cur].size, reservedSpace)
 				continue
 			}
+			// TODO isIdle incTask 可以包装在一起
+			index = i
+			a[_cur].status.incTask()
 		}
 
-		// TODO isIdle incTask 可以包装在一起
-		a[_cur].status.incTask()
 		info = a[_cur]
-		index = i
 		break
 	}
 
