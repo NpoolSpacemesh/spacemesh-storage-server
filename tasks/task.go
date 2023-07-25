@@ -38,7 +38,7 @@ func Fetch(input Meta) {
 	plotFile := filepath.Base(input.PlotURL)
 	plotDir := filepath.Base(filepath.Dir(input.PlotURL))
 
-	path := mount.Mount(plotDir)
+	path := mount.Mount(plotDir, input.DiskSpace)
 	// 没有挂载的盘符
 	if path == "" {
 		// TODO

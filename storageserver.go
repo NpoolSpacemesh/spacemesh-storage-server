@@ -91,6 +91,7 @@ func (s *StorageServer) UploadPlotRequest(w http.ResponseWriter, req *http.Reque
 			PlotURL:     input.PlotURL,
 			FinishURL:   input.FinishURL,
 			FailURL:     input.FailURL,
+			DiskSpace:   input.DiskSpace,
 		}
 		ms, err := json.Marshal(meta)
 		if err != nil {

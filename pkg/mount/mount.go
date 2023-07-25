@@ -72,7 +72,7 @@ func (a mountInfos) Less(i, j int) bool {
 }
 
 // Choose the right moint point
-func (a mountInfos) mount(dir string) mountInfo {
+func (a mountInfos) mount(dir string, diskSpace uint64) mountInfo {
 	info := mountInfo{}
 	index := 0
 
@@ -94,7 +94,7 @@ func (a mountInfos) mount(dir string) mountInfo {
 			if !a[_cur].status.isIdle() {
 				continue
 			}
-			if a[_cur].size < reservedSpace {
+			if a[_cur].size < reservedSpace || a[_cur].size < diskSpace {
 				log.Infof(log.Fields{}, "%v available %v < %v", a[_cur].path, a[_cur].size, reservedSpace)
 				continue
 			}
@@ -127,12 +127,12 @@ func (a mountInfos) updateStatus(mountPoint string) {
 }
 
 // Mount 寻找合适的目录
-func Mount(dir string) string {
+func Mount(dir string, diskSpace uint64) string {
 	initMount()
 	lock.Lock()
-	path := _mountInfos.mount(dir).path
+	path := _mountInfos.mount(dir, diskSpace).path
 	if path == "" {
-		path = _mountInfos.mount("").path
+		path = _mountInfos.mount("", diskSpace).path
 	}
 	if path != "" {
 		os.MkdirAll(filepath.Join(path, dir), 0666)
