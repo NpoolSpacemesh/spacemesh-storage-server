@@ -103,6 +103,7 @@ func Fetch(input Meta) {
 }
 
 func Finsih(input Meta) {
+	log.Infof(log.Fields{}, "finish %v", input.PlotURL)
 	// notify client write plot file result
 	finish := spacemeshstorageProxyTypes.FinishPlotInput{
 		PlotFile: input.PlotURL,
@@ -122,6 +123,7 @@ func Finsih(input Meta) {
 }
 
 func Fail(input Meta) {
+	log.Infof(log.Fields{}, "fail %v", input.PlotURL)
 	fail := spacemeshstorageProxyTypes.FailPlotInput{
 		PlotFile: input.PlotURL,
 	}
