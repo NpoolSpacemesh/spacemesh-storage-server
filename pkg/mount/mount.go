@@ -173,14 +173,12 @@ func initMount() error {
 
 		ok, err := util.IsMountPoint(absMountPath)
 		if err != nil {
-			log.Infof(log.Fields{}, "check %v is mount point error %v", absMountPath, err)
 			return nil
 		}
 
 		if ok {
 			avail, err := util.New(absMountPath).GetAvail()
 			if err != nil {
-				log.Infof(log.Fields{}, "get mount point %v avail space error %v", absMountPath, err)
 				return nil
 			}
 
